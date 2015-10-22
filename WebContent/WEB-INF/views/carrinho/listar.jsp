@@ -52,7 +52,6 @@
 								<th width="65%" colspan="2">Livro</th>
 								<th width="10%">Preço</th>
 								<th width="5%">Qtd</th>
-								<th width="5%">Estoque</th>
 								<th width="10%">Total</th>
 								<th width="5%"></th>
 							</tr>
