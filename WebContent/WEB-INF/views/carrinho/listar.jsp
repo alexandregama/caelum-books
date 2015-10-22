@@ -35,7 +35,7 @@
 					<div class="alert alert-danger">${messageWarn}</div>
 				</c:if>
 
-				<c:if test="${empty carrinho.itensCompra}">
+				<c:if test="${empty cart.itensCompra}">
 					<div class="alert alert-info">Nenhum livro no carrinho de
 						compras.</div>
 
@@ -43,7 +43,7 @@
 
 				</c:if>
 
-				<c:if test="${not empty carrinho.itensCompra}">
+				<c:if test="${not empty cart.itensCompra}">
 
 					<table id="cart-table" class="table table-hover">
 
@@ -59,7 +59,7 @@
 						</thead>
 
 						<tbody>
-							<c:forEach items="${carrinho.itensCompra}" var="item">
+							<c:forEach items="${cart.itensCompra}" var="item">
 								<tr>
 									<td><img
 										src="<c:url value="/resources/imagens/small_${item.imagem}" />" /></td>
@@ -78,7 +78,7 @@
 						</tbody>
 
 						<tfoot>
-							<c:if test="${carrinho.comLivrosImpressos}">
+							<c:if test="${cart.comLivrosImpressos}">
 								<tr>
 									<td></td>
 
@@ -86,7 +86,7 @@
 										<form action="${linkCarrinhoCalcularCep}" method="post">
 											<span class="input-group"> <span
 												class="input-group-addon">CEP:</span> <input type="text"
-												class="form-control" value="${carrinho.cepDestino}"
+												class="form-control" value="${cart.cepDestino}"
 												name="cepDestino" id="cepDestino" placeholder="Digite o cep">
 												<span class="input-group-btn">
 													<button class="btn btn-default" type="submit">
@@ -101,7 +101,7 @@
 								<tr>
 									<td colspan="4"></td>
 									<td colspan="3" align="right"><c:if
-											test="${not empty carrinho.valorFrete}">Frete: ${carrinho.valorFrete}</c:if></td>
+											test="${not empty cart.valorFrete}">Frete: ${cart.valorFrete}</c:if></td>
 								</tr>
 							</c:if>
 
@@ -110,10 +110,10 @@
 										url="/WEB-INF/views/compreMais.jsp" /></td>
 
 								<td colspan="3" align="right"><strong>Total:
-										${carrinho.total}</strong></td>
+										${cart.total}</strong></td>
 							</tr>
 
-							<c:if test="${not carrinho.pagamentoCriado}">
+							<c:if test="${not cart.paymentCreated}">
 								<tr id="tr_form_cartao">
 									<td colspan="2"></td>
 									<td colspan="5" align="right">
@@ -144,7 +144,7 @@
 								</tr>
 							</c:if>
 
-							<c:if test="${carrinho.prontoParaSerFinalizado}">
+							<c:if test="${cart.prontoParaSerFinalizado}">
 								<tr>
 									<td></td>
 									<td colspan="6" align="right">

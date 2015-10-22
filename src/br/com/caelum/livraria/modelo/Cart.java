@@ -17,7 +17,7 @@ import br.com.caelum.livraria.rest.ClienteRest;
 
 @Component
 @Scope("session")
-public class Carrinho implements Serializable {
+public class Cart implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -33,7 +33,7 @@ public class Carrinho implements Serializable {
 	EnviadorMensagemJms enviador;
 
 
-	public void adicionarOuIncremantarQuantidadeDoItem(Livro livro, Formato formato) {
+	public void add(Livro livro, Formato formato) {
 
 		ItemCompra item = new ItemCompra(livro, formato);
 
@@ -47,7 +47,7 @@ public class Carrinho implements Serializable {
 		cancelarPagamento();
 	}
 
-	public void removerItemPeloCodigoEFormato(String codigo, Formato formato) {
+	public void removeBookBy(String codigo, Formato formato) {
 
 		ItemCompra itemARemover = procurarItemPelaId(codigo, formato);
 
@@ -62,7 +62,7 @@ public class Carrinho implements Serializable {
 		cancelarPagamento();
 	}
 
-	public Pagamento criarPagamento(String numeroCartao, String nomeTitular) {
+	public Pagamento createPayment(String numeroCartao, String nomeTitular) {
 		Transacao transacao = new Transacao();
 		transacao.setNumero(numeroCartao);
 		transacao.setTitular(nomeTitular);
@@ -93,7 +93,7 @@ public class Carrinho implements Serializable {
 		return pedido;
 	}
 
-	public void atualizarFrete(final String novoCepDestino) {
+	public void updateShipping(final String novoCepDestino) {
 		this.cepDestino = novoCepDestino;
 
 		//servico web do correios aqui
@@ -126,11 +126,11 @@ public class Carrinho implements Serializable {
 		return valorFrete;
 	}
 
-	public boolean isFreteCalculado() {
+	public boolean isCalculatedShipping() {
 		return !this.valorFrete.equals(BigDecimal.ZERO) || !this.isComLivrosImpressos();
 	}
 
-	public boolean isPagamentoCriado() {
+	public boolean isPaymentCreated() {
 		if (this.pagamento == null) {
 			return false;
 		}
@@ -138,7 +138,7 @@ public class Carrinho implements Serializable {
 	}
 
 	public boolean isProntoParaSerFinalizado() {
-		return this.isFreteCalculado() && this.isPagamentoCriado();
+		return this.isCalculatedShipping() && this.isPaymentCreated();
 	}
 
 	public boolean isComLivrosImpressos() {
