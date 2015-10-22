@@ -63,13 +63,13 @@
 								<tr>
 									<td><img
 										src="<c:url value="/resources/imagens/small_${item.imagem}" />" /></td>
-									<td>${item.titulo}(${item.formato})</td>
+									<td>${item.titulo}(${item.bookFormat})</td>
 									<td class="numeric-cell">${item.valorUnico}</td>
 									<td class="numeric-cell">${item.quantidade}</td>
 									<td class="numeric-cell"><c:if test="${item.impresso}">${item.quantidadeEstoque}</c:if></td>
 									<td class="numeric-cell">${item.total}</td>
 									<td><a
-										href="${linkCarrinhoRemover}?codigo=${item.codigo}&formato=${item.formato}"
+										href="${linkCarrinhoRemover}?codigo=${item.codigo}&formato=${item.bookFormat}"
 										class="btn btn-default"> <span
 											class="glyphicon glyphicon-trash"></span> Excluir
 									</a></td>

@@ -1,7 +1,8 @@
 package br.com.caelum.livraria.modelo;
 
-public enum Formato {
+public enum BookFormat {
 	
-	EBOOK,IMPRESSO;
+	EBOOK,
+	IMPRESSO;
 
 }

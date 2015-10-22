@@ -40,7 +40,7 @@ public class Pedido implements Serializable {
 		return itens;
 	}
 
-	public String getFormato() {
+	public String getBookFormat() {
 		return this.temApenasLivrosImpressos() ? "impresso" : "ebook";
 	}
 	

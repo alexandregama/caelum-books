@@ -108,8 +108,8 @@ public class Livro implements Serializable{
 		this.valorImpresso = valorImpresso;
 	}
 
-	public BigDecimal getValor(Formato formato) {
-		if(formato.equals(Formato.EBOOK)) {
+	public BigDecimal getValor(BookFormat bookFormat) {
+		if(bookFormat.equals(BookFormat.EBOOK)) {
 			return this.valorEbook;
 		}
 		return this.valorImpresso;

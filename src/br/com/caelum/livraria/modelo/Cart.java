@@ -33,9 +33,9 @@ public class Cart implements Serializable {
 	EnviadorMensagemJms enviador;
 
 
-	public void add(Livro livro, Formato formato) {
+	public void add(Livro livro, BookFormat bookFormat) {
 
-		ItemCompra item = new ItemCompra(livro, formato);
+		ItemCompra item = new ItemCompra(livro, bookFormat);
 
 		if (jaExisteItem(item)) {
 			ItemCompra itemCarrinho = this.procurarItem(item);
@@ -47,9 +47,9 @@ public class Cart implements Serializable {
 		cancelarPagamento();
 	}
 
-	public void removeBookBy(String codigo, Formato formato) {
+	public void removeBookBy(String codigo, BookFormat bookFormat) {
 
-		ItemCompra itemARemover = procurarItemPelaId(codigo, formato);
+		ItemCompra itemARemover = procurarItemPelaId(codigo, bookFormat);
 
 		if (itemARemover != null) {
 			this.itensDeCompra.remove(itemARemover);
@@ -181,10 +181,10 @@ public class Cart implements Serializable {
 		throw new IllegalStateException("Item não encontrado");
 	}
 
-	private ItemCompra procurarItemPelaId(final String codigo, Formato formato) {
+	private ItemCompra procurarItemPelaId(final String codigo, BookFormat bookFormat) {
 
 		for (ItemCompra item : this.itensDeCompra) {
-			if (item.getCodigo().equals(codigo) && item.getFormato().equals(formato)) {
+			if (item.getCodigo().equals(codigo) && item.getBookFormat().equals(bookFormat)) {
 				return item;
 			}
 		}

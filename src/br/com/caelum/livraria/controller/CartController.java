@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.caelum.livraria.book.Books;
 import br.com.caelum.livraria.modelo.Cart;
-import br.com.caelum.livraria.modelo.Formato;
+import br.com.caelum.livraria.modelo.BookFormat;
 import br.com.caelum.livraria.modelo.Livro;
 import br.com.caelum.livraria.modelo.Pedido;
 
@@ -38,17 +38,17 @@ public class CartController {
 	private Books books;
 
 	@RequestMapping("/adicionarItem")
-	public String addItemToCart(@RequestParam("id") Integer livroId, @RequestParam("formatoLivro") Formato formato) {
+	public String addItemToCart(@RequestParam("id") Integer livroId, @RequestParam("formatoLivro") BookFormat bookFormat) {
 		Livro livro = books.findById(livroId);
 
-		cart.add(livro, formato);
+		cart.add(livro, bookFormat);
 
 		return REDIRECT_CART_LIST_ALL;
 	}
 
 	@RequestMapping("/removerItem")
-	public String removeItemFromCart(@RequestParam("codigo") String codigo, @RequestParam("formato") Formato formato, RedirectAttributes result) {
-		this.cart.removeBookBy(codigo, formato);
+	public String removeItemFromCart(@RequestParam("codigo") String codigo, @RequestParam("formato") BookFormat bookFormat, RedirectAttributes result) {
+		this.cart.removeBookBy(codigo, bookFormat);
 
 		result.addFlashAttribute("messageInfo", "O item foi removido com sucesso.");
 
