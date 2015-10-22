@@ -22,6 +22,7 @@ public class ItemCompra implements Serializable {
 	@ManyToOne
 	private Livro livro;
 
+	@Deprecated //Hibernate mandatory
 	ItemCompra() {
 	}
 

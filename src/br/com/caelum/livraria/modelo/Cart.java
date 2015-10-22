@@ -42,7 +42,7 @@ public class Cart implements Serializable {
 			this.itensDeCompra.add(item);
 		}
 
-		cancelPayment();
+		updatePayment();
 	}
 
 	public void removeBookBy(String codigo, BookFormat bookFormat) {
@@ -57,7 +57,7 @@ public class Cart implements Serializable {
 			this.valorFrete = BigDecimal.ZERO;
 		}
 
-		cancelPayment();
+		updatePayment();
 	}
 
 	public Pagamento createPayment(String numeroCartao, String nomeTitular) {
@@ -71,13 +71,12 @@ public class Cart implements Serializable {
 		return this.pagamento;
 	}
 
-	private void cancelPayment() {
+	private void updatePayment() {
 		this.pagamento = null;
 		//poderia ter chamada do WS para cancelar o pagamento
 	}
 
 	public Pedido finalizarPedido() {
-
 		Pedido pedido = new Pedido();
 		pedido.setData(Calendar.getInstance());
 		pedido.setItens(new LinkedHashSet<>(this.itensDeCompra));
