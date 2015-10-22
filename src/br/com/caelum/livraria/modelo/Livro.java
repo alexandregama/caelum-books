@@ -28,8 +28,7 @@ public class Livro implements Serializable {
 	@Column(length = 1000)
 	private String descricao;
 
-	@Deprecated //Hibernate mandatory
-	Livro() {
+	public Livro() {
 	}
 
 	public Livro(String codigo, String titulo, String tituloCurto, String descricao, String nomeAutor, String imagem, BigDecimal valorEbook,
