@@ -16,6 +16,7 @@ import br.com.caelum.livraria.modelo.Cart;
 import br.com.caelum.livraria.modelo.BookFormat;
 import br.com.caelum.livraria.modelo.Livro;
 import br.com.caelum.livraria.modelo.Pedido;
+import br.com.caelum.livraria.order.Orders;
 
 @Controller
 @RequestMapping("/carrinho")
@@ -33,6 +34,9 @@ public class CartController {
 
 	@PersistenceContext
 	private EntityManager manager;
+	
+	@Autowired
+	private Orders orders;
 
 	@Autowired
 	private Books books;
@@ -107,7 +111,7 @@ public class CartController {
 		}
 
 		Pedido order = this.cart.finalizarPedido();
-		this.manager.persist(order);
+		orders.save(order);
 
 		result.addFlashAttribute("messageInfo", "Pedido realizado. STATUS: " + order.getStatus());
 
