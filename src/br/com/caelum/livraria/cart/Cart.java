@@ -1,4 +1,4 @@
-package br.com.caelum.livraria.modelo;
+package br.com.caelum.livraria.cart;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -13,6 +13,12 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import br.com.caelum.livraria.jms.EnviadorMensagemJms;
+import br.com.caelum.livraria.modelo.BookFormat;
+import br.com.caelum.livraria.modelo.ItemCompra;
+import br.com.caelum.livraria.modelo.Livro;
+import br.com.caelum.livraria.modelo.Pagamento;
+import br.com.caelum.livraria.modelo.Pedido;
+import br.com.caelum.livraria.modelo.Transacao;
 import br.com.caelum.livraria.rest.ClienteRest;
 
 @Component

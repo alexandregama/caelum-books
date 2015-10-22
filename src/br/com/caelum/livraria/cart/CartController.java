@@ -1,4 +1,4 @@
-package br.com.caelum.livraria.controller;
+package br.com.caelum.livraria.cart;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.caelum.livraria.book.Books;
-import br.com.caelum.livraria.modelo.Cart;
 import br.com.caelum.livraria.modelo.BookFormat;
 import br.com.caelum.livraria.modelo.Livro;
 import br.com.caelum.livraria.modelo.Pedido;
