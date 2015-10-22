@@ -13,15 +13,15 @@ public class ItemCompra implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id @GeneratedValue
+	@Id
+	@GeneratedValue
 	private Integer id;
 	private BookFormat bookFormat;
 	private Integer quantidade;
-	private Integer quantidadeEstoque;
-	
+
 	@ManyToOne
 	private Livro livro;
-	
+
 	ItemCompra() {
 	}
 
@@ -29,10 +29,9 @@ public class ItemCompra implements Serializable {
 		this.livro = livro;
 		this.bookFormat = bookFormat;
 		this.quantidade = 1;
-		this.quantidadeEstoque = 0;
 	}
-	
-	public void incrementaQuantidade(Integer quantidade) {
+
+	public void increaseQuantity(Integer quantidade) {
 		this.quantidade += quantidade;
 	}
 
@@ -46,10 +45,6 @@ public class ItemCompra implements Serializable {
 
 	public Integer getQuantidade() {
 		return quantidade;
-	}
-
-	public Integer getQuantidadeEstoque() {
-		return quantidadeEstoque;
 	}
 
 	public BigDecimal getValorUnico() {
@@ -73,10 +68,6 @@ public class ItemCompra implements Serializable {
 		return bookFormat;
 	}
 
-	public void setQuantidadeNoEstoque(Integer quantidade) {
-		quantidadeEstoque = quantidade;
-	}
-
 	public boolean temCodigo(String codigo) {
 		return this.getCodigo().equals(codigo);
 	}
@@ -84,8 +75,7 @@ public class ItemCompra implements Serializable {
 	@Override
 	public String toString() {
 		return "ItemCompra [titulo=" + this.livro.getTitulo() + ", image=" + this.livro.getImagem() + ", codigo=" + this.livro.getCodigo()
-				+ ", bookFormat=" + bookFormat + ", quantidade=" + quantidade + ", quantidadeEstoque="
-				+ quantidadeEstoque + ", valorUnico=" + livro.getValor(bookFormat) + "]";
+				+ ", bookFormat=" + bookFormat + ", quantidade=" + quantidade + ", valorUnico=" + livro.getValor(bookFormat) + "]";
 	}
 
 	@Override

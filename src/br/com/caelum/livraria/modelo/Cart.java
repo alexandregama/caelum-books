@@ -27,24 +27,22 @@ public class Cart implements Serializable {
 	private Pagamento pagamento;
 
 	@Autowired
-	ClienteRest clienteRest;
+	private ClienteRest clienteRest;
 
 	@Autowired
-	EnviadorMensagemJms enviador;
+	private EnviadorMensagemJms enviador;
 
+	public void add(Livro book, BookFormat bookFormat) {
+		ItemCompra item = new ItemCompra(book, bookFormat);
 
-	public void add(Livro livro, BookFormat bookFormat) {
-
-		ItemCompra item = new ItemCompra(livro, bookFormat);
-
-		if (jaExisteItem(item)) {
-			ItemCompra itemCarrinho = this.procurarItem(item);
-			itemCarrinho.incrementaQuantidade(item.getQuantidade());
+		if (itemExistsInCart(item)) {
+			ItemCompra itemCarrinho = this.searchItem(item);
+			itemCarrinho.increaseQuantity(item.getQuantidade());
 		} else {
 			this.itensDeCompra.add(item);
 		}
 
-		cancelarPagamento();
+		cancelPayment();
 	}
 
 	public void removeBookBy(String codigo, BookFormat bookFormat) {
@@ -59,7 +57,7 @@ public class Cart implements Serializable {
 			this.valorFrete = BigDecimal.ZERO;
 		}
 
-		cancelarPagamento();
+		cancelPayment();
 	}
 
 	public Pagamento createPayment(String numeroCartao, String nomeTitular) {
@@ -73,7 +71,7 @@ public class Cart implements Serializable {
 		return this.pagamento;
 	}
 
-	private void cancelarPagamento() {
+	private void cancelPayment() {
 		this.pagamento = null;
 		//poderia ter chamada do WS para cancelar o pagamento
 	}
@@ -168,11 +166,11 @@ public class Cart implements Serializable {
 		this.valorFrete = BigDecimal.ZERO;
 	}
 
-	private boolean jaExisteItem(final ItemCompra item) {
+	private boolean itemExistsInCart(final ItemCompra item) {
 		return this.itensDeCompra.contains(item);
 	}
 
-	private ItemCompra procurarItem(final ItemCompra itemProcurado) {
+	private ItemCompra searchItem(final ItemCompra itemProcurado) {
 		for (ItemCompra item : this.itensDeCompra) {
 			if (item.equals(itemProcurado)) {
 				return item;
