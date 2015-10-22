@@ -66,7 +66,6 @@
 									<td>${item.titulo}(${item.bookFormat})</td>
 									<td class="numeric-cell">${item.valorUnico}</td>
 									<td class="numeric-cell">${item.quantidade}</td>
-									<td class="numeric-cell"><c:if test="${item.impresso}">${item.quantidadeEstoque}</c:if></td>
 									<td class="numeric-cell">${item.total}</td>
 									<td><a
 										href="${linkCarrinhoRemover}?codigo=${item.codigo}&formato=${item.bookFormat}"
