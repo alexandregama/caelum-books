@@ -1,7 +1,6 @@
 package br.com.caelum.livraria.cart;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -11,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.caelum.books.estoque.StockItem;
+import br.com.caelum.books.estoque.StockService;
 import br.com.caelum.livraria.book.Books;
 import br.com.caelum.livraria.modelo.BookFormat;
+import br.com.caelum.livraria.modelo.ItemCompra;
 import br.com.caelum.livraria.modelo.Livro;
 import br.com.caelum.livraria.modelo.Pedido;
 import br.com.caelum.livraria.order.Orders;
@@ -31,14 +33,14 @@ public class CartController {
 	@Autowired
 	private Cart cart;
 
-	@PersistenceContext
-	private EntityManager manager;
-	
 	@Autowired
 	private Orders orders;
 
 	@Autowired
 	private Books books;
+	
+	@Autowired
+	private StockService stockService;
 
 	@RequestMapping("/adicionarItem")
 	public String addItemToCart(@RequestParam("id") Integer livroId, @RequestParam("formatoLivro") BookFormat bookFormat) {
@@ -120,7 +122,14 @@ public class CartController {
 	@RequestMapping("/listar")
 	public String listar() throws Exception {
 
-		// verificacao do estoque aqui
+		List<ItemCompra> itensCompra = cart.getItensCompra();
+		for (ItemCompra itemCompra : itensCompra) {
+			if (itemCompra.isImpresso()) {
+				StockItem stock = stockService.getByCode(itemCompra.getCodigo());
+				
+				itemCompra.setStockQuantity(stock.getQuantity());
+			}
+		}
 
 		return JSP_CART_LIST_ALL;
 	}
