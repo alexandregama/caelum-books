@@ -53,7 +53,7 @@
 								<th width="10%">Preço</th>
 								<th width="5%">Qtd</th>
 								<th width="10%">Total</th>
-								<th width="5%"></th>
+								<th width="5%">Estoque</th>
 							</tr>
 						</thead>
 
@@ -66,6 +66,7 @@
 									<td class="numeric-cell">${item.valorUnico}</td>
 									<td class="numeric-cell">${item.quantidade}</td>
 									<td class="numeric-cell">${item.total}</td>
+									<td class="numeric-cell">${item.stockQuantity}</td>
 									<td><a
 										href="${linkCarrinhoRemover}?codigo=${item.codigo}&formato=${item.bookFormat}"
 										class="btn btn-default"> <span
@@ -183,7 +184,7 @@
 			var filtro = /[0-9]/;
 			var inputs = document.querySelectorAll("#cepDestino");
 
-			for ( var i = 0; i < inputs.length; i++) {
+			for (var i = 0; i < inputs.length; i++) {
 
 				inputs[i].addEventListener("keypress", function(event) {
 

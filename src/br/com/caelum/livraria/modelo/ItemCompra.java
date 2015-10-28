@@ -18,6 +18,7 @@ public class ItemCompra implements Serializable {
 	private Integer id;
 	private BookFormat bookFormat;
 	private Integer quantidade;
+	private Integer stockQuantity;
 
 	@ManyToOne
 	private Livro livro;
@@ -105,5 +106,13 @@ public class ItemCompra implements Serializable {
 		if (bookFormat != other.bookFormat)
 			return false;
 		return true;
+	}
+
+	public Integer getStockQuantity() {
+		return stockQuantity;
+	}
+
+	public void setStockQuantity(Integer stockQuantity) {
+		this.stockQuantity = stockQuantity;
 	}
 }
