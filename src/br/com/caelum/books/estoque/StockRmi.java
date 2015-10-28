@@ -7,4 +7,6 @@ public interface StockRmi extends Remote {
 
 	StockItem getByCode(String code) throws RemoteException;
 	
+	void decreaseQuantity(String code, Integer quantity) throws RemoteException;
+	
 }

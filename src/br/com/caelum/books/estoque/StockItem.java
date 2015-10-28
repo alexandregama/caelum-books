@@ -17,6 +17,10 @@ public class StockItem implements Serializable {
 		this.quantity = quantity;
 		internalCode = interInteger;
 	}
+	
+	public void decreaseQuantity(Integer quantity) {
+		this.quantity -= quantity;
+	}
 
 	public String getCode() {
 		return code;
