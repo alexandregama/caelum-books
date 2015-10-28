@@ -13,31 +13,31 @@ public class ItemCompra implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id @GeneratedValue
+	@Id
+	@GeneratedValue
 	private Integer id;
-	private Formato formato;
+	private BookFormat bookFormat;
 	private Integer quantidade;
-	private Integer quantidadeEstoque;
-	
+
 	@ManyToOne
 	private Livro livro;
-	
+
+	@Deprecated //Hibernate mandatory
 	ItemCompra() {
 	}
 
-	public ItemCompra(Livro livro, Formato formato) {
+	public ItemCompra(Livro livro, BookFormat bookFormat) {
 		this.livro = livro;
-		this.formato = formato;
+		this.bookFormat = bookFormat;
 		this.quantidade = 1;
-		this.quantidadeEstoque = 0;
 	}
-	
-	public void incrementaQuantidade(Integer quantidade) {
+
+	public void increaseQuantity(Integer quantidade) {
 		this.quantidade += quantidade;
 	}
 
 	public boolean isImpresso() {
-		return formato.equals(Formato.IMPRESSO);
+		return bookFormat.equals(BookFormat.IMPRESSO);
 	}
 
 	public String getImagem() {
@@ -48,12 +48,8 @@ public class ItemCompra implements Serializable {
 		return quantidade;
 	}
 
-	public Integer getQuantidadeEstoque() {
-		return quantidadeEstoque;
-	}
-
 	public BigDecimal getValorUnico() {
-		return this.livro.getValor(formato);
+		return this.livro.getValor(bookFormat);
 	}
 
 	public String getTitulo() {
@@ -69,12 +65,8 @@ public class ItemCompra implements Serializable {
 		return valorLivro.multiply(new BigDecimal(this.quantidade));
 	}
 
-	public Formato getFormato() {
-		return formato;
-	}
-
-	public void setQuantidadeNoEstoque(Integer quantidade) {
-		quantidadeEstoque = quantidade;
+	public BookFormat getBookFormat() {
+		return bookFormat;
 	}
 
 	public boolean temCodigo(String codigo) {
@@ -84,8 +76,7 @@ public class ItemCompra implements Serializable {
 	@Override
 	public String toString() {
 		return "ItemCompra [titulo=" + this.livro.getTitulo() + ", image=" + this.livro.getImagem() + ", codigo=" + this.livro.getCodigo()
-				+ ", formato=" + formato + ", quantidade=" + quantidade + ", quantidadeEstoque="
-				+ quantidadeEstoque + ", valorUnico=" + livro.getValor(formato) + "]";
+				+ ", bookFormat=" + bookFormat + ", quantidade=" + quantidade + ", valorUnico=" + livro.getValor(bookFormat) + "]";
 	}
 
 	@Override
@@ -93,7 +84,7 @@ public class ItemCompra implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((this.livro.getCodigo() == null) ? 0 : this.livro.getCodigo().hashCode());
-		result = prime * result + ((formato == null) ? 0 : formato.hashCode());
+		result = prime * result + ((bookFormat == null) ? 0 : bookFormat.hashCode());
 		return result;
 	}
 
@@ -111,7 +102,7 @@ public class ItemCompra implements Serializable {
 				return false;
 		} else if (!this.livro.getCodigo().equals(other.livro.getCodigo()))
 			return false;
-		if (formato != other.formato)
+		if (bookFormat != other.bookFormat)
 			return false;
 		return true;
 	}

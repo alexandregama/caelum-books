@@ -20,7 +20,7 @@ public class Pagamento implements Serializable {
 	private String status;
 	private BigDecimal valor;
 	
-	private final ArrayList<Link> links = new ArrayList<>();
+	private ArrayList<Link> links = new ArrayList<>();
 
 	public void setStatus(final String status) {
 		this.status = status;

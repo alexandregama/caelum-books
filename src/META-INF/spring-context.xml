@@ -42,7 +42,7 @@
 	<bean id="mysqlDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
-		<property name="jdbcUrl" value="jdbc:mysql://localhost/fj36" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost/caelumbooks" />
 		<property name="user" value="root" />
 		<property name="password" value="" />
 

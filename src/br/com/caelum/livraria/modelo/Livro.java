@@ -10,12 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Livro implements Serializable{
+public class Livro implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String codigo;
 	private String titulo;
@@ -23,15 +23,15 @@ public class Livro implements Serializable{
 	private String nomeAutor;
 	private String imagem;
 	private BigDecimal valorEbook;
-	private BigDecimal valorImpresso; 
+	private BigDecimal valorImpresso;
 
-	@Column(length=1000) 
+	@Column(length = 1000)
 	private String descricao;
 
-	Livro() {}//só para hibernate ficar feliz
-	
-	public Livro(String codigo, String titulo, String tituloCurto, String descricao,
-			String nomeAutor, String imagem, BigDecimal valorEbook,
+	public Livro() {
+	}
+
+	public Livro(String codigo, String titulo, String tituloCurto, String descricao, String nomeAutor, String imagem, BigDecimal valorEbook,
 			BigDecimal valorImpresso) {
 
 		this.codigo = codigo;
@@ -55,7 +55,7 @@ public class Livro implements Serializable{
 	public String getTituloCurto() {
 		return tituloCurto;
 	}
-	
+
 	public String getDescricao() {
 		return descricao;
 	}
@@ -108,8 +108,8 @@ public class Livro implements Serializable{
 		this.valorImpresso = valorImpresso;
 	}
 
-	public BigDecimal getValor(Formato formato) {
-		if(formato.equals(Formato.EBOOK)) {
+	public BigDecimal getValor(BookFormat bookFormat) {
+		if (bookFormat.equals(BookFormat.EBOOK)) {
 			return this.valorEbook;
 		}
 		return this.valorImpresso;
@@ -121,10 +121,8 @@ public class Livro implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Livro [id=" + id + ", codigo=" + codigo + ", titulo=" + titulo + ", tituloCurto="
-				+ tituloCurto + ", nomeAutor=" + nomeAutor + ", imagem=" + imagem + ", valorEbook="
-				+ valorEbook + ", valorImpresso=" + valorImpresso + ", descricao=" + descricao
-				+ "]";
+		return "Livro [id=" + id + ", codigo=" + codigo + ", titulo=" + titulo + ", tituloCurto=" + tituloCurto + ", nomeAutor=" + nomeAutor
+				+ ", imagem=" + imagem + ", valorEbook=" + valorEbook + ", valorImpresso=" + valorImpresso + ", descricao=" + descricao + "]";
 	}
-	
+
 }
