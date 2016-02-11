@@ -12,13 +12,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
+
+import br.com.caelum.books.estoque.StockItem;
+import br.com.caelum.books.estoque.StockService;
+import br.com.caelum.estoque.AuthorizationTokenException;
 import br.com.caelum.livraria.jms.EnviadorMensagemJms;
 import br.com.caelum.livraria.modelo.BookFormat;
 import br.com.caelum.livraria.modelo.ItemCompra;
 import br.com.caelum.livraria.modelo.Livro;
 import br.com.caelum.livraria.modelo.Pagamento;
 import br.com.caelum.livraria.modelo.Pedido;
-import br.com.caelum.livraria.modelo.Transacao;
+import br.com.caelum.livraria.modelo.Transaction;
 import br.com.caelum.livraria.rest.ClienteRest;
 
 @Component
@@ -37,6 +43,9 @@ public class Cart implements Serializable {
 
 	@Autowired
 	private EnviadorMensagemJms enviador;
+	
+	@Autowired
+	private StockService stockService;
 
 	public void add(Livro book, BookFormat bookFormat) {
 		ItemCompra item = new ItemCompra(book, bookFormat);
@@ -67,12 +76,12 @@ public class Cart implements Serializable {
 	}
 
 	public Pagamento createPayment(String numeroCartao, String nomeTitular) {
-		Transacao transacao = new Transacao();
-		transacao.setNumero(numeroCartao);
+		Transaction transacao = new Transaction();
+		transacao.setNumber(numeroCartao);
 		transacao.setTitular(nomeTitular);
 		transacao.setValor(this.getTotal());
 
-		this.pagamento = this.clienteRest.criarPagamento(transacao);
+		this.pagamento = this.clienteRest.createPayment(transacao);
 		
 		return this.pagamento;
 	}
@@ -153,19 +162,28 @@ public class Cart implements Serializable {
 		}
 		return false;
 	}
+	
+	public void updateItemCompraStock() throws AuthorizationTokenException {
+		List<String> printedBooks = this.getCodigosDosItensImpressos();
+		List<StockItem> items = stockService.getAllStockItems(printedBooks);
+		
+		for (StockItem stockItem : items) {
+			atualizarQuantidadeDisponivelDoItemCompra(stockItem);
+		}
+	}
 
-//	private void atualizarQuantidadeDisponivelDoItemCompra(final ItemEstoque itemEstoque) {
-//		ItemCompra item = Iterables.find(this.itensDeCompra, new Predicate<ItemCompra>() {
-//
-//			@Override
-//			public boolean apply(ItemCompra item) {
-//				return item.temCodigo(itemEstoque.getCodigo());
-//			}
-//		});
-//
-//		item.setQuantidadeNoEstoque(itemEstoque.getQuantidade());
-//	}
+	private void atualizarQuantidadeDisponivelDoItemCompra(final StockItem stockItem) {
+		ItemCompra item = Iterables.find(this.itensDeCompra, new Predicate<ItemCompra>() {
 
+			@Override
+			public boolean apply(ItemCompra item) {
+				return item.temCodigo(stockItem.getCode());
+			}
+		});
+
+		item.setStockQuantity(stockItem.getQuantity());
+	}
+	
 	private void limparCarrinho() {
 		this.itensDeCompra = new LinkedHashSet<>();
 		this.valorFrete = BigDecimal.ZERO;
@@ -195,7 +213,6 @@ public class Cart implements Serializable {
 		return null;
 	}
 
-	@SuppressWarnings("unused")
 	private List<String> getCodigosDosItensImpressos() {
 		List<String> codigos = new ArrayList<>();
 
@@ -205,6 +222,5 @@ public class Cart implements Serializable {
 		}
 		return codigos;
 	}
-
 	
 }

@@ -3,28 +3,31 @@ package br.com.caelum.livraria.modelo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Transacao  implements Serializable{
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+public class Transaction implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private String numero;
+	private String number;
 	private String titular;
-	private BigDecimal valor;
+	private BigDecimal value;
 
-	public void setNumero(final String numero) {
-		this.numero = numero;
+	public void setNumber(final String numero) {
+		this.number = numero;
 	}
 
 	public void setValor(final BigDecimal valor) {
-		this.valor = valor;
+		this.value = valor;
 	}
 
 	public void setTitular(final String titular) {
 		this.titular = titular;
 	}
 	
-	public String getNumero() {
-		return this.numero;
+	public String getNumber() {
+		return this.number;
 	}
 
 	public String getTitular() {
@@ -33,13 +36,13 @@ public class Transacao  implements Serializable{
 
 
 	public BigDecimal getValor() {
-		return this.valor;
+		return this.value;
 	}
 
 	@Override
 	public String toString() {
-		return "Transacao [numero=" + this.numero + ", titular=" + this.titular +  ", valor="
-				+ this.valor + "]";
+		return "Transacao [numero=" + this.number + ", titular=" + this.titular +  ", valor="
+				+ this.value + "]";
 	}
 
 	@Override
@@ -50,21 +53,21 @@ public class Transacao  implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Transacao other = (Transacao) obj;
-		if (numero == null) {
-			if (other.numero != null)
+		Transaction other = (Transaction) obj;
+		if (number == null) {
+			if (other.number != null)
 				return false;
-		} else if (!numero.equals(other.numero))
+		} else if (!number.equals(other.number))
 			return false;
 		if (titular == null) {
 			if (other.titular != null)
 				return false;
 		} else if (!titular.equals(other.titular))
 			return false;
-		if (valor == null) {
-			if (other.valor != null)
+		if (value == null) {
+			if (other.value != null)
 				return false;
-		} else if (!valor.equals(other.valor))
+		} else if (!value.equals(other.value))
 			return false;
 		return true;
 	}
