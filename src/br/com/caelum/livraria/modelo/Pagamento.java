@@ -6,8 +6,10 @@ import java.util.ArrayList;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
+@XmlRootElement
 public class Pagamento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -15,19 +17,18 @@ public class Pagamento implements Serializable {
 	private static final String STATUS_CONFIRMADO = "CONFIRMADO";
 	private static final String STATUS_CANCELADO = "CANCELADO";
 	
-	@Id 
+	@Id
 	private Integer id;
 	private String status;
-	private BigDecimal valor;
-	
+	private BigDecimal value;
 	private ArrayList<Link> links = new ArrayList<>();
 
 	public void setStatus(final String status) {
 		this.status = status;
 	}
 
-	public void setValor(final BigDecimal valor) {
-		this.valor = valor;
+	public void setValue(final BigDecimal value) {
+		this.value = value;
 	}
 
 	public void setId(final Integer id) {
@@ -38,8 +39,8 @@ public class Pagamento implements Serializable {
 		return this.status;
 	}
 
-	public BigDecimal getValor() {
-		return this.valor;
+	public BigDecimal getValue() {
+		return this.value;
 	}
 
 	public Integer getId() {
@@ -73,7 +74,7 @@ public class Pagamento implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Pagamento [id=" + this.id + ", status=" + this.status + ", valor=" + this.valor + ", links="
+		return "Pagamento [id=" + this.id + ", status=" + this.status + ", valor=" + this.value + ", links="
 				+ this.links + "]";
 	}
 
